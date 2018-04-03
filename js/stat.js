@@ -19,7 +19,6 @@ window.renderStatistics = function (ctx, names, times) {
 
   ctx.fillStyle = '#000';
   ctx.font = '16px PT Mono';
-
   ctx.fillText('Ура вы победили!', 120, 40);
   ctx.fillText('Список результатов:', 120, 60);
   var getMaxElement = function (array) {
@@ -32,24 +31,27 @@ window.renderStatistics = function (ctx, names, times) {
     }
     return max;
   };
-  var histogramHeigth = 150; // px;
-  var ratio = histogramHeigth / getMaxElement(times); // px;
-  var initialX = 140; // px;
-  var initialY = 250; // px;
-  var barWidth = 40; // px;
-  var indent = 90; // px;
-  var lineHeight = 20; // px;
+
+  var HISTOGRAM_HEIGTH = 150; // px;
+  var INITIAL_X = 140; // px;
+  var INITIAL_Y = 250; // px;
+  var BAR_WIDTH = 40; // px;
+  var INDENT = 90; // px;
+  var LINE_HEIGHT = 20; // px;
+  var ratio = HISTOGRAM_HEIGTH / getMaxElement(times); // px;
+  var drawRect = function (n) {
+    ctx.fillRect(INITIAL_X + INDENT * n, INITIAL_Y, BAR_WIDTH, -times[n] * ratio);
+  };
+  var typeText = function (n) {
+    ctx.fillStyle = '#000';
+    ctx.fillText(names[i], INITIAL_X + INDENT * i, INITIAL_Y + LINE_HEIGHT);
+    ctx.fillText(Math.round(times[i]), INITIAL_X + INDENT * i, INITIAL_Y - times[i] * ratio - LINE_HEIGHT / 2);
+  };
 
   for (var i = 0; i < times.length; i++) {
-    if (names[i] === 'Вы') {
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-    } else {
-      var color = [0, 0, 255, parseFloat(Math.random().toFixed(1)) + 0.1];
-      ctx.fillStyle = 'rgba' + '(' + color + ')';
-    }
-    ctx.fillRect(initialX + indent * i, initialY, barWidth, -times[i] * ratio);
-    ctx.fillStyle = '#000';
-    ctx.fillText(names[i], initialX + indent * i, initialY + lineHeight);
-    ctx.fillText(Math.round(times[i]), initialX + indent * i, initialY - times[i] * ratio - lineHeight / 2);
+    var color = [0, 0, 255, parseFloat(Math.random().toFixed(1)) + 0.1];
+    ctx.fillStyle = (names[i] === 'Вы') ? 'rgba(255, 0, 0, 1)' : 'rgba' + '(' + color + ')';
+    drawRect(i);
+    typeText(i);
   }
 };

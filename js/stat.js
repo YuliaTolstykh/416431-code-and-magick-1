@@ -44,8 +44,8 @@ window.renderStatistics = function (ctx, names, times) {
   };
   var typeText = function (n) {
     ctx.fillStyle = '#000';
-    ctx.fillText(names[i], INITIAL_X + INDENT * i, INITIAL_Y + LINE_HEIGHT);
-    ctx.fillText(Math.round(times[i]), INITIAL_X + INDENT * i, INITIAL_Y - times[i] * ratio - LINE_HEIGHT / 2);
+    ctx.fillText(names[n], INITIAL_X + INDENT * n, INITIAL_Y + LINE_HEIGHT);
+    ctx.fillText(Math.round(times[n]), INITIAL_X + INDENT * n, INITIAL_Y - times[n] * ratio - LINE_HEIGHT / 2);
   };
 
   for (var i = 0; i < times.length; i++) {
